@@ -1,2 +1,4 @@
 env/
 .pytest_cache
+__pychache__
+gdpyapp/__pycache__
