@@ -1,5 +1,6 @@
 import requests
-from flask import Flask, request
+from flask import Flask, request, render_template, Markup
+from bs4 import BeautifulSoup
 
 from .helpers import parser
 
@@ -7,23 +8,31 @@ from .helpers import parser
 app = Flask(__name__)
 
 @app.route('/')
+@app.route('/index/')
 def index():
-    return "Hello world !"
+    return render_template('index.html')
 
-# /results?text=livre-truc-a
-@app.route('/results/')
-def form_result():
-    # I use my parser
-    client_request = parser.parserkiller("Le musée du louvre de Paris")
-    # Make a search from the parser's words with mediawiki API
-    primary_search = requests.get("https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch={}&prop=revisions&rvprop=content&format=json&formatversion=2".format('%20'.join(client_request)))
-    primary_data = primary_search.json()
-    primary_serach_results = primary_data["query"]["search"]
-    # We consider the first result of the research is the most relevant
-    pageid = primary_serach_results[0]["pageid"]
-    # Make a search from the previous first result with its page id
-    final_search = requests.get("https://fr.wikipedia.org/w/api.php?action=query&pageids={}&prop=revisions&rvprop=content&format=json&formatversion=2".format(pageid))
-    final_data = final_search.json()
-    return str(final_data)# ["query"]["pages"][0]["revisions"][0]["content"])
-
-    # return request.args.get("text")
+@app.route('/results/', methods=['GET', 'POST'])
+def results():
+    if request.method == 'POST':
+        # To handle the request from the form
+        form_result = request.form['request']
+        # To use a parser with user request from the form
+        form_parsing = parser.parserkiller("{}".format(form_result))
+        # Make a search from the parser's words with mediawiki API
+        search = requests.get("https://fr.wikipedia.org/w/api.php?action=query&list=search&srsearch={}&prop=revisions&rvprop=content&format=json&formatversion=2".format('%20'.join(form_parsing)))
+        search_data = search.json()
+        search_results = search_data["query"]["search"]
+        # With this previous research we have several results
+        # We consider the first result of the research is the most relevant
+        pageid = search_results[0]["pageid"]
+        # Make a request to obtain the page of the previous first result with its page id
+        page_request = requests.get("https://fr.wikipedia.org/w/api.php?action=query&pageids={}&prop=extracts&rvprop=content&format=json&formatversion=2".format(pageid))
+        page_data = page_request.json()
+        # To scrape the result
+        html_doc = page_data["query"]["pages"][0]["extract"]
+        # BeautifulSoup is a HTML scraper
+        soup = BeautifulSoup(html_doc)
+        # return the first paragraph of the page
+        description = Markup(soup.find('p')) # Markup is use to declare description as a HTML text
+    return render_template('results.html', description=description)
