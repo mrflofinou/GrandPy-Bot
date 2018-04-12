@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form method="POST" action="/results/">
+        <p>
+            <input type="text" name="request"/>
+        </p>
+        <input type="submit" value="Demander à Grand Py" />
+    </form>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="../static/css/style.css" />
+        <title>Grand Py Bot</title>
+    </head>
+
+    <body>
+        <div id="bloc_page">
+            <header>
+                <div id="titre_principal">
+                    <div id="logo">
+                        <a href="/index/"><img src="../static/img/gdpy.png" alt="logo de GdPy" /></a>
+                        <h1>
+                            Grand Py Bot
+                        </h1>
+                    </div>
+                    <h2>Le papi robot qui sait tout sur tout</h2>
+                </div>
+            </header>
+
+            <section>
+                {% block content %}
+                {% endblock %}
+            </section>
+
+            <footer>
+
+            </footer>
+        </div>
+    </body>
+</html>
