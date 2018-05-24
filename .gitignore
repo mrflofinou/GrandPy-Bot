@@ -2,6 +2,7 @@ env/
 .pytest_cache
 geckodriver.log
 __pychache__
+__pychache__/
 gdpyapp/__pycache__
 gdpyapp/tests/__pycache__
 gdpyapp/helpers/__pycache__
