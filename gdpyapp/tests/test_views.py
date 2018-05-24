@@ -29,15 +29,15 @@ class gdpyapp_test(LiveServerTestCase):
 
     def test_result_runs(self):
         payload = {'request': 'musée du louvre'}
-        res = requests.post(self.get_server_url(), data=payload)
+        res = requests.post(self.get_server_url() + "/results/", data=payload)
         assert res.status_code == 200
 
     def test_results_return_text(self):
         payload = {'request': 'musée du louvre'}
-        res = requests.post(self.get_server_url(), data=payload)
-        assert "Le <b>musée du Louvre</b>, inauguré en 1793 sous l'appellation <i>Muséum central des arts de la République</i> dans le palais du Louvre, ancienne résidence royale située au centre de Paris, est aujourd'hui le plus grand musée d'art et d'antiquités au monde." in res.text
+        res = requests.post(self.get_server_url() + "/results/", data=payload)
+        assert "Le musée du Louvre, inauguré en 1793 sous l'appellation Muséum central des arts de la République dans le palais du Louvre, ancienne résidence royale située au centre de Paris, est aujourd'hui le plus grand musée d'art et d'antiquités au monde." in res.text
 
     def test_results_return_error_message_when_form_is_void(self):
         payload = {'request': ''}
-        res = requests.post(self.get_server_url(), data=payload)
+        res = requests.post(self.get_server_url() + "/results/", data=payload)
         assert "Me demander quelque chose tu dois" in res.text
