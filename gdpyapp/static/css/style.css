@@ -25,7 +25,20 @@ form
 
 #response
 {
-    width: 60%; /*Définir en pourcentage permet d'adapter à l'écran de l'utilisateur*/
+    display: flex;
+    flex-direction: row;
+    width: 70%; /*Définir en pourcentage permet d'adapter à l'écran de l'utilisateur*/
     margin: auto;
-    text-align: justify;
+    text-align: center;
+    align-items: center;
+}
+
+#wikipedia
+{
+    margin: 10px 10px 10px 10px;
+}
+
+#googlemaps
+{
+    margin: 10px 10px 10px 10px;
 }
