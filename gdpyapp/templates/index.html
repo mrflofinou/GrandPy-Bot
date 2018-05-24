@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="POST" action="/results/">
+    <form>
         <p>
-            <input type="text" name="request"/>
+            <input type="text" name="request" id="request"/>
+            <input type="submit" value="Demander à Grand Py" />
         </p>
-        <input type="submit" value="Demander à Grand Py" />
     </form>
+
+    <div id="response">
+        <div id="wikipedia" style="display:none">
+            <p id="text">
+
+            </p>
+        </div>
+        <div id="googlemaps" style="display:none">
+            <iframe id="map" width="500" height="350" frameborder="0" style="border:0" src="" allowfullscreen> <!-- The definition of the iframe from https://developers.google.com/maps/documentation/embed/guide?hl=fr -->
+            </iframe>
+        </div>
+    </div>
 {% endblock %}
