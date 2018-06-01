@@ -1,22 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form>
-        <p>
-            <input type="text" name="request" id="request"/>
-            <input type="submit" value="Demander à Grand Py" />
-        </p>
-    </form>
+    <div class = "row py-3">
+        <form class = "col-12">
+            <div class"row">
+                <input  class="col-md-4 offset-md-2 col-lg-3 offset-lg-3 my-1" type="text" name="request" id="request"/>
+                <input class = "col-md-4 col-lg-3 btn btn-primary" type="submit" value="Demander à Grand Py" />
+            </div>
+        </form>
+    </div>
 
-    <div id="response">
-        <div id="wikipedia" style="display:none">
-            <p id="text">
-
+    <div class = "row">
+        <div class="col-md-8 offset-md-2" id="presentation">
+            <p class = "text-center alert alert-primary">
+                Bonjour mon petit poussin ! Je suis Grang Py Bot.<br />
+                En toute modestie, je sais tout sur tout. Si tu veux avoir des infos sur un lieu, poses moi une question ! Et si tu n'est pas un vilain garnement, je te raconterai une histoire.
             </p>
         </div>
-        <div id="googlemaps" style="display:none">
-            <iframe id="map" width="500" height="350" frameborder="0" style="border:0" src="" allowfullscreen> <!-- The definition of the iframe from https://developers.google.com/maps/documentation/embed/guide?hl=fr -->
-            </iframe>
+    </div>
+
+    <div class = "row" id="wikipedia" style="display:none">
+        <div class = "col-md-8 offset-md-2" >
+            <p class="text-center alert alert-primary" id="text">
+            </p>
         </div>
     </div>
+
+    <div class = "row" id="googlemaps" style="display:none">
+        <p class="col-md-8 offset-md-2 alert alert-warning text-center" id="mapError" style="display:none">
+        </P>
+        <iframe class = "col-md-8 offset-md-2" id="map"  height="350" frameborder="0" style="border:0" src="" allowfullscreen> <!-- The definition of the iframe from https://developers.google.com/maps/documentation/embed/guide?hl=fr -->
+        </iframe>
+    </div>
+
+
 {% endblock %}
