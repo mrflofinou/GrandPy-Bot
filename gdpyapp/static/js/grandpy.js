@@ -46,8 +46,27 @@ form.addEventListener("submit", function(e) {
 
             var textPapiElt = document.createElement("p");
             textPapiElt.classList.add("text-right", "alert", "alert-primary");
-            textPapiElt.textContent = response.wikipedia;
+            textPapiElt.appendChild(document.createTextNode(response.gdpy_adress))
+            textPapiElt.appendChild(document.createElement("br"))
+            textPapiElt.appendChild(document.createTextNode(response.adress))
             divPapiElt.appendChild(textPapiElt);
+
+            // I display the text from wikipedia
+            var wikiElt = document.createElement("div");
+            wikiElt.classList.add("row");
+            resultElt.appendChild(wikiElt);
+
+            var divWikiElt = document.createElement("div");
+            divWikiElt.classList.add("col-md-7", "offset-md-5");
+            wikiElt.appendChild(divWikiElt);
+
+            var textWikiElt = document.createElement("p");
+            textWikiElt.classList.add("text-right", "alert", "alert-primary");
+            textWikiElt.appendChild(document.createTextNode(response.gdpy_story))
+            textWikiElt.appendChild(document.createElement("br"))
+            textWikiElt.appendChild(document.createElement("br"))
+            textWikiElt.appendChild(document.createTextNode(response.gdpy_knowledge))
+            // divWikiElt.appendChild(textWikiElt);
 
             // I display the map
             var mapElt = document.createElement("div");
@@ -61,7 +80,12 @@ form.addEventListener("submit", function(e) {
             iframeMapiElt.frameborder="0";
             iframeMapiElt.style="border:0";
             iframeMapiElt.allowfullscreen=true;
-            mapElt.appendChild(iframeMapiElt);
+            // mapElt.appendChild(iframeMapiElt);
+
+            setTimeout(function () {
+                divWikiElt.appendChild(textWikiElt);
+                mapElt.appendChild(iframeMapiElt);
+            }, 1500);
 
         } else {
             // I display the response error of Grand PY bot
@@ -75,7 +99,7 @@ form.addEventListener("submit", function(e) {
 
             var textPapiElt = document.createElement("p");
             textPapiElt.classList.add("text-right", "alert", "alert-warning");
-            textPapiElt.textContent = response.wikipedia;
+            textPapiElt.textContent = response.gdpy_knowledge;
             divPapiElt.appendChild(textPapiElt);
         }
     });
