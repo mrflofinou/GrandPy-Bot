@@ -4,7 +4,7 @@ var form = document.querySelector("form");
 form.addEventListener("submit", function(e) {
     // To don't reload the web page after the submit
     e.preventDefault();
-    var data = new FormData(form);
+    var dataForm = new FormData(form);
 
     document.getElementById("presentation").style.display = 'none';
 
@@ -18,12 +18,12 @@ form.addEventListener("submit", function(e) {
     resultElt.appendChild(userElt);
 
     var textUserElt = document.createElement("p");
-    textUserElt.classList.add("col-md-6", "alert", "alert-success", "mt-3");
-    textUserElt.textContent = data.get('request');
+    textUserElt.classList.add("col-sm-12", "col-md-6", "alert", "alert-success", "mt-3");
+    textUserElt.textContent = dataForm.get('request');
     userElt.appendChild(textUserElt);
 
-    // AJAX post to Flask view "/index/"
-    ajaxPost("https://super-grandpy-bot.herokuapp.com/results/", data, function(response) {
+    // AJAX post to Flask view "/results/"
+    ajaxPost("http://localhost:5000/results/", dataForm, function(response) {
         document.getElementById("presentation").style.display = 'none';
         // I convert the JSON from Flask in javascript object
         // This Json contain the text from wikipedia and the place_id from gogle maps
@@ -38,10 +38,11 @@ form.addEventListener("submit", function(e) {
             // I display the response of Grand PY bot
             var papiElt = document.createElement("div");
             papiElt.classList.add("row");
+            papiElt.id = "papi";
             resultElt.appendChild(papiElt);
 
             var divPapiElt = document.createElement("div");
-            divPapiElt.classList.add("col-md-7", "offset-md-5");
+            divPapiElt.classList.add("col-sm-12", "col-md-7", "offset-md-5");
             papiElt.appendChild(divPapiElt);
 
             var textPapiElt = document.createElement("p");
@@ -57,7 +58,7 @@ form.addEventListener("submit", function(e) {
             resultElt.appendChild(wikiElt);
 
             var divWikiElt = document.createElement("div");
-            divWikiElt.classList.add("col-md-7", "offset-md-5");
+            divWikiElt.classList.add("col-sm-12", "col-md-7", "offset-md-5");
             wikiElt.appendChild(divWikiElt);
 
             var textWikiElt = document.createElement("p");
@@ -74,7 +75,7 @@ form.addEventListener("submit", function(e) {
             resultElt.appendChild(mapElt);
 
             var iframeMapiElt = document.createElement("iframe");
-            iframeMapiElt.classList.add("col-md-7", "offset-md-5");
+            iframeMapiElt.classList.add("col-sm-12", "col-md-7", "offset-md-5");
             iframeMapiElt.src = googleMapsRequest;
             iframeMapiElt.height="300";
             iframeMapiElt.frameborder="0";
@@ -91,10 +92,11 @@ form.addEventListener("submit", function(e) {
             // I display the response error of Grand PY bot
             var papiElt = document.createElement("div");
             papiElt.classList.add("row");
+            papiElt.id = "papi";
             resultElt.appendChild(papiElt);
 
             var divPapiElt = document.createElement("div");
-            divPapiElt.classList.add("col-md-7", "offset-md-5");
+            divPapiElt.classList.add("col-sm-12", "col-md-7", "offset-md-5");
             papiElt.appendChild(divPapiElt);
 
             var textPapiElt = document.createElement("p");
