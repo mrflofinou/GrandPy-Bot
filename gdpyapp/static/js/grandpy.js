@@ -19,7 +19,7 @@ form.addEventListener("submit", function(e) {
 
     var textUserElt = document.createElement("p");
     textUserElt.classList.add("col-md-6", "alert", "alert-success", "mt-3");
-    textUserElt.textContent = dataForm.get('request');
+    textUserElt.textContent = form.elements[0].value  //dataForm.get('request');
     userElt.appendChild(textUserElt);
 
     // AJAX post
