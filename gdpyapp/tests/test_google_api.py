@@ -1,9 +1,8 @@
 import pytest
 import requests
-import requests_mock
 
 from .. import app
-from ..helpers import api_helper, exceptions
+from ..helpers import api_helper, mock
 
 
 app.config.from_object('gdpyapp.tests.config')
@@ -27,16 +26,11 @@ def test_get_google_maps_return_place_id(monkeypatch):
 
     def mockreturn(request, params):
         # I use the library 'requests-mock' to mock a Requests' response.
-        session = requests.Session()
-        adapter = requests_mock.Adapter()
-        session.mount('mock', adapter)
-        adapter.register_uri('GET', 'mock://test.com', json=results, status_code=200)
-        resp = session.get('mock://test.com')
-        return resp
+        return mock.mock_requests(results)
 
     monkeypatch.setattr(requests, 'get', mockreturn)
 
-    assert api_helper.ApiHelper._get_google_map_place_id("Paris", app.config["GOOGLE_KEY_TEST"]) == "AbCdEf"
+    assert api_helper.ApiHelper.get_google_map_place_id("Paris", app.config["GOOGLE_KEY_TEST"]) == "AbCdEf"
 
 
 def test_get_google_maps_return_adress(monkeypatch):
@@ -49,12 +43,7 @@ def test_get_google_maps_return_adress(monkeypatch):
 
     def mockreturn(request, params):
         # I use the library 'requests-mock' to mock a Requests' response.
-        session = requests.Session()
-        adapter = requests_mock.Adapter()
-        session.mount('mock', adapter)
-        adapter.register_uri('GET', 'mock://test.com', json=results, status_code=200)
-        resp = session.get('mock://test.com')
-        return resp
+        return mock.mock_requests(results)
 
     monkeypatch.setattr(requests, 'get', mockreturn)
 
