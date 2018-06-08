@@ -22,8 +22,8 @@ form.addEventListener("submit", function(e) {
     textUserElt.textContent = dataForm.get('request');
     userElt.appendChild(textUserElt);
 
-    // AJAX post to Flask view "/results/"
-    ajaxPost("http://localhost:5000/results/", dataForm, function(response) {
+    // AJAX post
+    ajaxPost("https://super-grandpy-bot.herokuapp.com/results/", dataForm, function(response) {
         document.getElementById("presentation").style.display = 'none';
         // I convert the JSON from Flask in javascript object
         // This Json contain the text from wikipedia and the place_id from gogle maps
